@@ -1,0 +1,28 @@
+spring:
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/signature_service
+    username: signature_user
+    password: password
+    pool:
+      initial-size: 2
+      max-size: 20
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.sql
+    enabled: true
+  main:
+    allow-bean-definition-overriding: true
+
+files-service:
+  base-url: http://localhost:8081
+
+logging:
+  level:
+    root: INFO
+    com.example: DEBUG
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
