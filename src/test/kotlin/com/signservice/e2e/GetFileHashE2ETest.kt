@@ -10,10 +10,11 @@ internal class GetFileHashE2ETest : BaseE2ETest() {
 
     @Test
     fun `should return file hash`() {
-        val fileId = "test-file-id"
-        val content = "test-content".encodeToByteArray()
-        stubFile(fileId, content)
-        val expectedHash = runBlocking { hashingService.calculateGostHash(content) }
+        val exampleContent = javaClass.getResourceAsStream("/wiremock/__files/example.docx")
+            ?.use { it.readAllBytes() }
+            ?: error("example.docx not found in resources")
+
+        val expectedHash = runBlocking { hashingService.calculateGostHash(exampleContent) }
 
         val response = webTestClient.get()
             .uri("/api/v1/hash?fileId=$fileId")

@@ -1,0 +1,13 @@
+{
+  "request": {
+    "method": "GET",
+    "urlPath": "/files/f953f787-e488-4a26-b79e-9db17dd441da"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/octet-stream"
+    },
+    "bodyFileName": "example.docx"
+  }
+}

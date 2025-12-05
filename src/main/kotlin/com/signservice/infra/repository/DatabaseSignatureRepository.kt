@@ -6,6 +6,7 @@ import io.r2dbc.spi.Readable
 import org.springframework.r2dbc.core.DatabaseClient
 import org.springframework.r2dbc.core.awaitOne
 import org.springframework.r2dbc.core.awaitOneOrNull
+import org.springframework.r2dbc.core.awaitSingle
 import org.springframework.stereotype.Repository
 import java.time.Instant
 import java.util.UUID
@@ -48,7 +49,7 @@ class DatabaseSignatureRepository(
             .bind("fileName", signature.fileName)
             .bind("fileHash", signature.fileHash)
             .map(this::mapRow)
-            .awaitOne()
+            .awaitSingle()
     }
 
     override suspend fun findById(id: UUID): Signature? {
@@ -71,7 +72,7 @@ class DatabaseSignatureRepository(
         signedAt = requireNotNull(row.get("signed_at", Instant::class.java)),
         signatureBytes = requireNotNull(row.get("signature_bytes", ByteArray::class.java)),
         signatureBase64 = row.get("signature_base64", String::class.java),
-        fileId = requireNotNull(row.get("file_id", String::class.java)),
+        fileId = requireNotNull(row.get("file_id", UUID::class.java)),
         fileName = requireNotNull(row.get("file_name", String::class.java)),
         fileHash = requireNotNull(row.get("file_hash", String::class.java))
     )

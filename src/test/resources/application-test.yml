@@ -1,0 +1,4 @@
+spring:
+  test:
+    webtestclient:
+      timeout: 30s   # или 60s, как тебе удобнее

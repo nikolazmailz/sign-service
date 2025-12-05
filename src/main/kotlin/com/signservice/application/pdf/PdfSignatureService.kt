@@ -1,4 +1,4 @@
-package com.signservice.application.service
+package com.signservice.application.pdf
 
 import com.signservice.domain.Signature
 

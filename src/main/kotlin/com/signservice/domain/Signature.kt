@@ -15,7 +15,7 @@ data class Signature(
     val signedAt: Instant,
     val signatureBytes: ByteArray?,
     val signatureBase64: String?,
-    val fileId: String,
+    val fileId: UUID,
     val fileName: String,
     val fileHash: String
 )

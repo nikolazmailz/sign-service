@@ -55,7 +55,13 @@ dependencies {
     implementation("org.bouncycastle:bcpkix-jdk18on:1.83")
 
     // PDF processing
-    implementation("org.apache.pdfbox:pdfbox:2.0.30")
+//    implementation("org.apache.pdfbox:pdfbox:2.0.30")
+
+    // Apache POI для DOCX
+    implementation("org.apache.poi:poi-ooxml:5.3.0")
+
+    // PDFBox для PDF
+    implementation("org.apache.pdfbox:pdfbox:3.0.6")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
@@ -65,7 +71,11 @@ dependencies {
     testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("org.testcontainers:postgresql")
     testImplementation("org.testcontainers:testcontainers")
-    testImplementation("com.github.tomakehurst:wiremock-jre8:2.35.0")
+
+//    testImplementation("org.wiremock.integrations.testcontainers:wiremock-testcontainers-module:1.0-alpha-15")
+
+//    testImplementation("org.wiremock:wiremock:3.5.2")
+    testImplementation("org.wiremock:wiremock-jetty12:3.9.2")
 }
 
 kotlin {

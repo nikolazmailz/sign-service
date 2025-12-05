@@ -14,9 +14,13 @@ internal class SignatureSigE2ETest : BaseE2ETest() {
 
     @Test
     fun `should create signature and download sig`() {
-        val fileId = "sig-file-id"
-        val fileName = "contract.p7s"
-        val fileHash = runBlocking { hashingService.calculateGostHash("file-content".toByteArray()) }
+        val fileName = "example.docx"
+
+        val exampleContent = javaClass.getResourceAsStream("/wiremock/__files/example.docx")
+            ?.use { it.readAllBytes() }
+            ?: error("example.docx not found in resources")
+        val fileHash = runBlocking { hashingService.calculateGostHash(exampleContent) }
+
         val signatureBytes = "signature-data".toByteArray()
 
         val response = webTestClient.post()
@@ -49,7 +53,7 @@ internal class SignatureSigE2ETest : BaseE2ETest() {
     }
 
     private fun createRequest(
-        fileId: String,
+        fileId: UUID,
         fileName: String,
         fileHash: String,
         signatureBytes: ByteArray

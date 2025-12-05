@@ -13,7 +13,7 @@ data class SignatureCreationRequestDto(
     val signedAt: String,
     val signatureBytesBase64: String,
     val signatureBase64: String?,
-    val fileId: String,
+    val fileId: UUID,
     val fileName: String,
     val fileHash: String
 )

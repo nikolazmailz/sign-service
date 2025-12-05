@@ -1,8 +1,10 @@
 package com.signservice.application.usecase
 
 import com.signservice.domain.SignatureRepository
+import org.springframework.stereotype.Component
 import java.util.UUID
 
+@Component
 class GetSignatureFileUseCase(
     private val signatureRepository: SignatureRepository
 ) {

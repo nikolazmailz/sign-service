@@ -3,6 +3,7 @@ package com.signservice.controllers
 import com.signservice.application.usecase.CreateSignatureUseCase
 import com.signservice.application.usecase.GetSignatureFileUseCase
 import com.signservice.application.usecase.CreateSignatureRequest
+import com.signservice.application.usecase.GetSignedPdfUseCase
 import com.signservice.controllers.dto.SignatureCreationRequestDto
 import com.signservice.controllers.dto.SignatureCreatedResponseDto
 import org.springframework.http.HttpHeaders
@@ -17,7 +18,8 @@ import java.util.UUID
 @RequestMapping("/api/v1/signatures")
 class SignatureController(
     private val createSignatureUseCase: CreateSignatureUseCase,
-    private val getSignatureFileUseCase: GetSignatureFileUseCase
+    private val getSignatureFileUseCase: GetSignatureFileUseCase,
+    private val getSignedPdfUseCase: GetSignedPdfUseCase
 ) {
 
     @PostMapping
@@ -53,5 +55,13 @@ class SignatureController(
             fileHash = fileHash
         )
 
+    @GetMapping("/{id}/pdf")
+    suspend fun getSignedPdf(@PathVariable id: UUID): ResponseEntity<ByteArray> {
+        val signedPdf = getSignedPdfUseCase.execute(id)
+        return ResponseEntity.ok()
+            .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"${signedPdf.fileName}\"")
+            .contentType(MediaType.APPLICATION_PDF)
+            .body(signedPdf.pdf)
+    }
 }
 

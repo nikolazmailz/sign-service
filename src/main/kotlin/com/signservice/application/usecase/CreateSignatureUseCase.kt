@@ -2,8 +2,10 @@ package com.signservice.application.usecase
 
 import com.signservice.domain.SignatureRepository
 import com.signservice.domain.Signature
+import org.springframework.stereotype.Component
 import java.util.UUID
 
+@Component
 class CreateSignatureUseCase(
     private val signatureRepository: SignatureRepository
 ) {
@@ -14,7 +16,7 @@ class CreateSignatureUseCase(
         require(request.signerOrganization.isNotBlank()) { "signerOrganization is required" }
         require(request.certificateSerialNumber.isNotBlank()) { "certificateSerialNumber is required" }
         require(request.signatureBytes.isNotEmpty()) { "signatureBytes is required" }
-        require(request.fileId.isNotBlank()) { "fileId is required" }
+//        require(request.fileId) { "fileId is required" }
         require(request.fileName.isNotBlank()) { "fileName is required" }
         require(request.fileHash.isNotBlank()) { "fileHash is required" }
 
@@ -30,7 +32,7 @@ class CreateSignatureUseCase(
             signedAt = request.signedAt,
             signatureBytes = request.signatureBytes,
             signatureBase64 = request.signatureBase64,
-            fileId = request.fileId.trim(),
+            fileId = request.fileId,
             fileName = request.fileName.trim(),
             fileHash = request.fileHash.trim()
         )

@@ -1,1 +1,1 @@
-rootProject.name = "sign-service"
+rootProject.name = "pdf-service"

@@ -15,13 +15,15 @@ internal class SignedPdfE2ETest : BaseE2ETest() {
 
     @Test
     fun `should return signed pdf`() {
-        val fileId = "pdf-file-id"
-        val fileName = "document.pdf"
-        val pdfContent = "%PDF-1.4\n%EOF\n".toByteArray()
-        stubFile(fileId, pdfContent, "application/pdf")
+        val fileName = "example.docx"
+        val pdfContent = javaClass.getResourceAsStream("/wiremock/__files/example.docx")
+            ?.use { it.readAllBytes() }
+            ?: error("example.docx not found in resources")
+//        stubFile(fileId, pdfContent, "application/pdf")
 
         val signatureBytes = "pdf-signature".toByteArray()
         val fileHash = runBlocking { hashingService.calculateGostHash(pdfContent) }
+
         val created = webTestClient.post()
             .uri("/api/v1/signatures")
             .contentType(MediaType.APPLICATION_JSON)
@@ -48,7 +50,7 @@ internal class SignedPdfE2ETest : BaseE2ETest() {
     }
 
     private fun createRequest(
-        fileId: String,
+        fileId: UUID,
         fileName: String,
         fileHash: String,
         signatureBytes: ByteArray

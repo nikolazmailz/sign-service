@@ -4,7 +4,7 @@ import java.time.Instant
 import java.util.UUID
 
 data class FileHashDto(
-    val fileId: String,
+    val fileId: UUID,
     val hash: String
 )
 
@@ -19,7 +19,7 @@ data class CreateSignatureRequest(
     val signedAt: Instant,
     val signatureBytes: ByteArray,
     val signatureBase64: String?,
-    val fileId: String,
+    val fileId: UUID,
     val fileName: String,
     val fileHash: String
 )
@@ -27,7 +27,7 @@ data class CreateSignatureRequest(
 data class SignatureCreatedDto(val id: UUID)
 
 data class SignatureFileDto(
-    val fileId: String,
+    val fileId: UUID,
     val fileName: String,
     val bytes: ByteArray
 )

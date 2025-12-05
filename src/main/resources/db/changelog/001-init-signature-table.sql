@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS signature (
     signature_bytes BYTEA,
     signature_base64 TEXT,
 
-    file_id TEXT,
+    file_id UUID,
     file_name TEXT,
     file_hash TEXT,
     created_at TIMESTAMPTZ DEFAULT now(),
